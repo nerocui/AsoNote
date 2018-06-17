@@ -1,0 +1,18 @@
+
+.mybutton{
+    margin-right: 10px;
+    font-size: 1.6rem;
+}
+
+.button{
+    margin-right: 10px;
+    font-size: $base-font-size;;
+    background-color: $button-bg;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-bottom: $bottom-margin;
+    padding: 1rem;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
