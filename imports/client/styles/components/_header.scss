@@ -1,0 +1,40 @@
+.header {
+  background: $header-bg;
+  color: $header-color;
+  opacity: 0.8;
+}
+
+.header__content {
+  align-items: center;
+  display: flex;
+  height: $header-height;
+  justify-content: space-between;
+  max-width: $site-max-width;
+  margin: 0 auto;
+  padding: $space;
+}
+
+.header__title {
+  margin: 5px 0 0 5px;
+}
+
+.header__all-app{
+  margin: 5px 5px 0 5px;
+}
+
+.header__title--wrapper{
+  margin:0;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.header__nav-toggle {
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+
+  @include desktop {
+    display: none;
+  }
+}

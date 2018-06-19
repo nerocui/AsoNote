@@ -1,89 +1,61 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import {Accounts} from 'meteor/accounts-base';
-import Button from '@material-ui/core/Button';
+import React from 'react';
+import { Link } from 'react-router';
+import { Accounts } from 'meteor/accounts-base';
+import { createContainer } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 
+export class Signup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: ''
+    };
+  }
+  onSubmit(e) {
+    e.preventDefault();
 
-export default class Signup extends Component{
+    let email = this.refs.email.value.trim();
+    let password = this.refs.password.value.trim();
 
-    constructor(props){
-        super(props);
-        this.state = {
-            email:'',
-            password:'',
-            error:''
-        };
+    if (password.length < 9) {
+      return this.setState({error: 'Password must be more than 8 characters long'});
     }
 
-    setEmail(e){
-        e.preventDefault();
-        console.log(e.target.value);
-        this.setState({
-            email:e.target.value,
-            error:''
-        });
-    }
+    this.props.createUser({email, password}, (err) => {
+      if (err) {
+        this.setState({error: err.reason});
+      } else {
+        this.setState({error: ''});
+      }
+    });
+  }
+  render() {
+    return (
+      <div className="boxed-view">
+        <div className="boxed-view__box">
+          <h1>Join</h1>
 
-    setPassword(e){
-        e.preventDefault();
-        console.log(e.target.value);
-        this.setState({
-            password:e.target.value,
-            error:''
-        });
-    }
+          {this.state.error ? <p>{this.state.error}</p> : undefined}
 
-    onSubmit(e){
-        e.preventDefault();
-        console.log('submit');
-        if(this.state.password.length < 9){
-            this.setState({error:'Password is too short.'});
-            return;
-        }
-        Accounts.createUser({
-            email:this.state.email,
-            password:this.state.password
-        }, (err)=>{ 
-            console.log( 'Signup callback',err);
-            this.setState({
-                error:err.reason
-            });
-        } );
-        this.setState({
-            email:'',
-            password:''
-        });
-    }
+          <form onSubmit={this.onSubmit.bind(this)} noValidate className="boxed-view__form">
+            <input type="email" ref="email" name="email" placeholder="Email"/>
+            <input type="password" ref="password" name="password" placeholder="Password"/>
+            <button className="button">Create Account</button>
+          </form>
 
-    render(){
-         return(
-             <div className="boxed-view" >
-                <div className="boxed-view__box" >
-                    <h1>App title</h1>
-                    <p>Signup from here</p>
-                    <p>{this.state.error}</p>
-                    <form className="boxed-view__form" onSubmit={this.onSubmit.bind(this)} noValidate>
-                        <input type="email" 
-                                name="email" 
-                                placeholder="Email" 
-                                value={this.state.email} 
-                                onChange={this.setEmail.bind(this)}/>
-                        <input type="password" 
-                                name="password" 
-                                placeholder="Password" 
-                                value={this.state.password}
-                                onChange={this.setPassword.bind(this)} />
-                        <Button variant="contained"
-                                style={{fontSize:2 + "rem"}}
-                                color="primary"
-                                type="submit">
-                            Create Account
-                        </Button>
-                    </form>
-                    <Link to="/">Already have an account?</Link>
-                </div>
-                 
-             </div>
-         );
-    }
+          <Link to="/">Have an account?</Link>
+        </div>
+      </div>
+    );
+  }
 }
+
+Signup.propTypes = {
+  createUser: PropTypes.func.isRequired
+};
+
+export default createContainer(() => {
+  return {
+    createUser: Accounts.createUser
+  };
+}, Signup);

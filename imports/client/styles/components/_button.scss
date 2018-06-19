@@ -1,0 +1,56 @@
+.button {
+  background-color: $button-bg;
+  border: none;
+  border-radius: 10px;
+  color: $button-color;
+  cursor: pointer;
+  font-size: $base-font-size;
+  line-height: 1.2;
+  margin-bottom: $space;
+  padding: $input-spacing;
+  text-transform: uppercase;
+}
+
+.button--add {
+  background-color: $button-bg;
+  border: none;
+  border-radius: 10px;
+  color: $button-color;
+  cursor: pointer;
+  font-size: 2rem;
+  margin-bottom: $space;
+}
+
+.button--add h1{
+  margin:0;
+}
+
+.button--link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.button--pill {
+   background-color: transparent;
+   border: 1px solid $button-pill-color;
+   color: $button-pill-color;
+   margin: 0 ($space / 2) 0 0;
+   padding: .3rem .8rem;
+}
+
+.button--secondary {
+  background: $button-secondary-bg;
+  border: 1px solid $button-secondary-border-color;
+  color: $button-secondary-color;
+}
+
+.button--link-text {
+  background: none;
+  margin: 0;
+  padding: 0;
+  text-transform: none;
+  background-color:$dark-grey;
+  color: white;
+  border-radius: 12px;
+  padding: 5px;
+}

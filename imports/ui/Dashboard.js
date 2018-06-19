@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 import Header from './Header';
+import NotesList from './NotesList';
+import Editor from './Editor';
 
-class Dashboard extends Component {
-    render() {
-        return (
-            <div className="container container__bg">
-                
-                <Header title="App Title"/>
-                <div className="dashboard" >
-                    Dashboard page content
-                </div>
-            </div>
-        );
-    }
-}
-
-export default withRouter(Dashboard);
+export default () => {
+  return (
+    <div className="bg">
+      <Header title="Aso Note"/>
+      <div className="page-content">
+        <div className="page-content__sidebar">
+          <NotesList/>
+        </div>
+        <div className="page-content__main">
+          <Editor/>
+        </div>
+      </div>
+    </div>
+  );
+};

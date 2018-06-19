@@ -1,85 +1,57 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import {Accounts} from 'meteor/accounts-base';
-import {Meteor} from 'meteor/meteor';
-import Button from '@material-ui/core/Button';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router';
+import { Meteor } from 'meteor/meteor';
+import PropTypes from 'prop-types';
+import { createContainer } from 'meteor/react-meteor-data';
 
-class Login extends Component {
+export class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: ''
+    };
+  }
+  onSubmit(e) {
+    e.preventDefault();
 
-    constructor(props){
-        super(props);
+    let email = this.refs.email.value.trim();
+    let password = this.refs.password.value.trim();
 
-        this.state={
-            error:'',
-            email:'',
-            password:''
-        };
-    }
+    this.props.loginWithPassword({email}, password, (err) => {
+      if (err) {
+        this.setState({error: 'Unable to login. Check email and password.'});
+      } else {
+        this.setState({error: ''});
+      }
+    });
+  }
+  render() {
+    return (
+      <div className="boxed-view">
+        <div className="boxed-view__box">
+          <h1>Login</h1>
 
-    onSubmit(e){
-        e.preventDefault();
-        Meteor.loginWithPassword(this.state.email, this.state.password, 
-            (err)=>{
-                console.log('Logging in, ', err);
-                const e = err?err.reason:'';
-                this.setState({
-                    error:e
-                });
-        });
-        this.setState({
-            email:'',
-            password:''
-        });
-    }
+          {this.state.error ? <p>{this.state.error}</p> : undefined}
 
-    setEmail(e){
-        e.preventDefault();
-        this.setState({
-            email:e.target.value,
-            error:''
-        });
-    }
+          <form onSubmit={this.onSubmit.bind(this)} noValidate className="boxed-view__form">
+            <input type="email" ref="email" name="email" placeholder="Email"/>
+            <input type="password" ref="password" name="password" placeholder="Password"/>
+            <button className="button">Login</button>
+          </form>
 
-    setPassword(e){
-        e.preventDefault();
-        this.setState({
-            password:e.target.value,
-            error:''
-        });
-    }
-
-    render() {
-        return (
-            <div className="boxed-view" >
-                <div className="boxed-view__box" >
-                    <h1>App Title</h1>
-                    <p>Login from here</p>
-                    <p>{this.state.error}</p>
-                    <form className="boxed-view__form" onSubmit={this.onSubmit.bind(this)} noValidate>
-                        <input type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={this.state.email}
-                            onChange={this.setEmail.bind(this)} />
-                        <input type="password"
-                            name="password"
-                            value={this.state.password}
-                            placeholder="Password"
-                            onChange={this.setPassword.bind(this)} />
-                        <Button variant="contained"
-                                style={{fontSize:2 + "rem"}}
-                                color="primary"
-                                type="submit">
-                            Login
-                        </Button>
-                    </form>
-                    <Link to="/signup" > Don't have an Account? </Link>
-                </div>
-                
-            </div>
-        );
-    }
+          <Link to="/signup">Don't have an account? Sign up here.</Link>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default withRouter(Login);
+Login.propTypes = {
+  loginWithPassword: PropTypes.func.isRequired
+};
+
+export default createContainer(() => {
+  return {
+    loginWithPassword: Meteor.loginWithPassword
+  };
+}, Login);
