@@ -11,6 +11,20 @@
   text-transform: uppercase;
 }
 
+.button--export {
+  background-color: $button-bg;
+  border: none;
+  border-radius: 10px;
+  color: $button-color;
+  cursor: pointer;
+  font-size: $base-font-size;
+  line-height: 1.2;
+  margin-bottom: $space;
+  margin-left: 1rem;
+  padding: $input-spacing;
+  text-transform: uppercase;
+}
+
 .button--add {
   background-color: $button-bg;
   border: none;

@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 
 export const Notes = new Mongo.Collection('notes');
 
@@ -17,9 +18,11 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
+    const drft = EditorState.createEmpty();
+    const raw = convertToRaw(drft.getCurrentContent());
     return Notes.insert({
       title: '',
-      body: '',
+      body: raw,
       userId: this.userId,
       updatedAt: moment().valueOf()
     });
@@ -42,24 +45,6 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
-    new SimpleSchema({
-      _id: {
-        type: String,
-        min: 1
-      },
-      title: {
-        type: String,
-        optional: true
-      },
-      body: {
-        type: String,
-        optional: true
-      }
-    }).validate({
-      _id,
-      ...updates
-    });
 
     Notes.update({
       _id,

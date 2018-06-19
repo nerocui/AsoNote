@@ -27,6 +27,17 @@
    -webkit-overflow-scrolling: touch;
 }
 
+.editor__wrapper{
+  height: 100%;
+  max-height: 100%;
+  overflow:auto;
+}
+
+.editorrrr :global(.public-DraftEditor-content){
+  max-height: 200px;
+  overflow: auto;
+}
+
 .editor__message {
   text-align: center;
   margin: $large-space * 2;
