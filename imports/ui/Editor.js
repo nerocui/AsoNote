@@ -65,14 +65,14 @@ export class Editor extends React.Component {
 
     exportHTML(){
       const data = draftToHtml(convertToRaw(this.state.body.getCurrentContent()));
-      const filename = this.state.title?this.state.title:'Untitled' + '.html';
+      const filename = (this.state.title?this.state.title:'Untitled') + '.html';
       fileDownload(data, filename);
     }
 
     exportMarkDown(){
       const data = draftToMarkdown(convertToRaw(this.state.body.getCurrentContent()));
       console.log(this.state.title);
-      const filename = this.state.title?this.state.title:'Untitled' + '.md';
+      const filename = (this.state.title?this.state.title:'Untitled') + '.md';
       fileDownload(data, filename);
     }
 
