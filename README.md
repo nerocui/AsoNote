@@ -1,2 +1,2 @@
-# Boilerplate Meteor Project
-react + auth
+# Aso Note
+A simple note taking app
