@@ -106,8 +106,8 @@ const LogoutText = posed.div({
 });
 
 const LogoutIcon = posed.img({
-  hover:{scale:1, y:-30},
-  normal:{scale:0, y:-30}
+  hover:{scale:1, y:-20},
+  normal:{scale:0, y:-20}
 });
 
 class Header extends Component{
