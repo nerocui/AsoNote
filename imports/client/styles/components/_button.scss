@@ -1,7 +1,6 @@
 .button {
   background-color: $button-bg;
   border: none;
-  border-radius: 10px;
   color: $button-color;
   cursor: pointer;
   font-size: $base-font-size;
@@ -14,7 +13,6 @@
 .button--export {
   background-color: $button-bg;
   border: none;
-  border-radius: 10px;
   color: $button-color;
   cursor: pointer;
   font-size: $base-font-size;
@@ -28,16 +26,18 @@
 .button--add {
   background-color: $button-bg;
   border: none;
-  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
   color: $button-color;
   cursor: pointer;
-  font-size: 2rem;
-  margin-bottom: $space;
 }
 
-.button--add h1{
-  margin:0;
+.button--add__center{
+  display: inline-block;
+  margin-top:2rem;
+  
 }
+
 
 .button--link {
   display: inline-block;
@@ -59,12 +59,12 @@
 }
 
 .button--link-text {
-  background: none;
   margin: 0;
-  padding: 0;
+  border:none;
+  cursor: pointer;
+  padding: $space-button;
   text-transform: none;
-  background-color:$dark-grey;
-  color: white;
-  border-radius: 12px;
-  padding: 5px;
+  background-color:$light-grey;
+  color: $brand-primary;
+  font-size: $medium-font-size;
 }

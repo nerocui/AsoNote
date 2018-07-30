@@ -7,15 +7,18 @@ import { Notes } from '../api/notes';
 import NotesListHeader from './NotesListHeader';
 import NotesListItem from './NotesListItem';
 import NotesListEmptyItem from './NotesListEmptyItem';
+import FlipMove from 'react-flip-move';
 
 export const NotesList = (props) => {
   return (
     <div className="item-list">
       <NotesListHeader/>
-      { props.notes.length === 0 ? <NotesListEmptyItem/> : undefined }
-      {props.notes.map((note) => {
-        return <NotesListItem key={note._id} note={note}/>;
-      })}
+      <FlipMove>
+        { props.notes.length === 0 ? <NotesListEmptyItem/> : undefined }
+        {props.notes.map((note) => {
+          return <NotesListItem key={note._id} note={note}/>;
+        })}
+      </FlipMove>
     </div>
   );
 };

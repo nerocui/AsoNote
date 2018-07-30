@@ -2,7 +2,6 @@
 .item-list {
   background-color: white;
   border: 1px solid $grey;
-  border-radius: 10px;
   overflow-y: auto;
   width: 100%;
   -webkit-overflow-scrolling: touch;
@@ -16,21 +15,14 @@
 
 // Item
 .item {
-  border-left: $item-border-width solid transparent;
   cursor: pointer;
-  padding: $space;
-  transition: background-color .3s ease, border-left .3s ease;
+  height: 6rem;
 }
 
-.item:hover {
-  background-color: $light-grey;
-  border-left: $item-border-width solid $grey;
+.item--content{
+  padding:$space;
 }
 
-.item--selected, .item--selected:hover {
-  background-color: $light-grey;
-  border-left: $item-border-width solid $brand-primary;
-}
 
 .item__title {
   font-weight: normal;

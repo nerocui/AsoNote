@@ -5,16 +5,8 @@ import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
 import { Notes } from '../api/notes';
 import PropTypes from 'prop-types';
-
-
 import { Editor as RTE } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw, ContentState, convertFromRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
-import fileDownload from 'js-file-download';
-import html2pdf from 'html2pdf.js';
-import { draftToMarkdown } from 'markdown-draft-js';
-
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 
@@ -36,10 +28,6 @@ export class Editor extends React.Component {
       this.setState({ title });
       this.props.call('notes.update', this.props.note._id, { title });
     }
-    handleRemoval(){
-      this.props.call('notes.remove', this.props.note._id);
-      this.props.browserHistory.push('/dashboard');
-    }
     componentDidUpdate(prevProps, prevState) {
       const currentNoteId = this.props.note ? this.props.note._id : undefined;
       const prevNoteId = prevProps.note ? prevProps.note._id : undefined;
@@ -58,24 +46,6 @@ export class Editor extends React.Component {
       this.props.call('notes.update', this.props.note._id, { body:row });
     }
 
-    exportPDF(){
-      const data = draftToHtml(convertToRaw(this.state.body.getCurrentContent()));
-      html2pdf(data);
-    }
-
-    exportHTML(){
-      const data = draftToHtml(convertToRaw(this.state.body.getCurrentContent()));
-      const filename = (this.state.title?this.state.title:'Untitled') + '.html';
-      fileDownload(data, filename);
-    }
-
-    exportMarkDown(){
-      const data = draftToMarkdown(convertToRaw(this.state.body.getCurrentContent()));
-      console.log(this.state.title);
-      const filename = (this.state.title?this.state.title:'Untitled') + '.md';
-      fileDownload(data, filename);
-    }
-
     render() {
       if (this.props.note) {
         return (
@@ -89,12 +59,6 @@ export class Editor extends React.Component {
                     editorState={this.state.body}
                     onEditorStateChange={this.onEditorStateChange.bind(this)} 
                     />
-            </div>
-            <div>
-              <button className="button button--secondary" onClick={this.handleRemoval.bind(this)}>Delete Note</button>
-              <button className="button--export" onClick={this.exportPDF.bind(this)} >Export PDF</button>
-              <button className="button--export" onClick={this.exportHTML.bind(this)} >Export HTML</button>
-              <button className="button--export" onClick={this.exportMarkDown.bind(this)} >Export MarkDown</button>
             </div>
           </div>
         );

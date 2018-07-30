@@ -1,7 +1,6 @@
 .header {
   background: $header-bg;
   color: $header-color;
-  opacity: 0.8;
 }
 
 .header__content {
@@ -15,11 +14,17 @@
 }
 
 .header__title {
-  margin: 5px 0 0 5px;
+  margin: 15px 0 0 40px;
+  font-weight: 600;
+  
+  font-size: 3.5rem;
 }
 
 .header__all-app{
-  margin: 5px 5px 0 5px;
+  margin: 15px 5px 0 5px;
+  height:2.5rem;
+  width:2.5rem;
+  cursor:pointer;
 }
 
 .header__title--wrapper{
@@ -31,10 +36,12 @@
 
 .header__nav-toggle {
   cursor: pointer;
-  height: 2rem;
-  width: 2rem;
-
   @include desktop {
     display: none;
   }
+}
+
+.logout-container{
+  overflow: hidden;
+  height:2rem;
 }

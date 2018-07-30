@@ -1,5 +1,4 @@
 import ReactDom from 'react-dom';
-import React, { Component } from 'react';
 import {Meteor} from 'meteor/meteor';
 import {Tracker} from 'meteor/tracker';
 import { Session } from 'meteor/session';
@@ -37,6 +36,7 @@ Tracker.autorun(() => {
 
 Meteor.startup(()=>{
   Session.set('selectedNoteId', undefined);
+  Session.set('hoverredNoteId', undefined);
   Session.set('isNavOpen', false);
   ReactDom.render(
     routes, 
